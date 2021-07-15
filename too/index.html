@@ -536,7 +536,7 @@
 <li>动漫：哆啦A梦、纳米核心、全职高手、末世觉醒等等</li>
 <li>分享：喜欢把自己的经验分享给大家</li>
 <li>DIY：一切皆可创造<h2 id="欢迎留言"><a href="#欢迎留言" class="headerlink" title="欢迎留言"></a>欢迎留言</h2>曾就职于朵莓网络，实习僧一枚。如果有什么建议和想法，都可以和我留言，就算留言未必有回响————By:轩</li>
-<li>电子邮箱：<a href="mailto:&#x47;&#x65;&#114;&#x61;&#x54;&#101;&#97;&#x72;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x47;&#x65;&#114;&#x61;&#x54;&#101;&#97;&#x72;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></li>
+<li>电子邮箱：<a href="mailto:&#71;&#101;&#x72;&#x61;&#84;&#101;&#x61;&#x72;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#71;&#101;&#x72;&#x61;&#84;&#101;&#x61;&#x72;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></li>
 </ul>
 
       </div>
@@ -574,6 +574,89 @@
     
 
     <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-if="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-if="visible">
+      <div class="donate-box_close">
+        <i class="fa fa-times" aria-hidden="true" @click="cancelDialogDrawer"></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-if="tabActive === 'Alipay'">
+          <img src="/medias/Alipay.jpg" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-if="tabActive === 'WeChatpay'">
+          <img src="/medias/wechat.png" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        // console.log('aa', $('.main-content'));
+        body.style.cssText = 'overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
     
 
     <!-- 分享 -->
